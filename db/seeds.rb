@@ -15,11 +15,13 @@ user = User.create({email: Faker::Internet.email, password: '123456'})
 20.times do 
     user = User.create({email: Faker::Internet.email, password: '123456'})
     puts "Created user: #{user.email}"
-    quiz = Quiz.create({name: Faker::Hipster.word, public: [true, false].sample, user: user})
-    puts "Created a new quiz called #{quiz.name} owned by #{quiz.user.email}"
-    (1..39).to_a.sample.times do
-        word = dic
-        question = Question.create({content: word[:definition], answer: word[:word]})
-        puts "New question: #{question.answer}: #{question.content}"
+    (0..11).to_a.sample.times do
+        quiz = Quiz.create({name: Faker::Hipster.word, public: [true, false].sample, user: user})
+        puts "Created a new quiz called #{quiz.name} owned by #{quiz.user.email}"
+        (1..39).to_a.sample.times do
+            word = dic
+            question = Question.create({content: word[:definition], answer: word[:word], quiz: quiz})
+            puts "New question: #{question.answer}: #{question.content}"
+        end
     end
 end
