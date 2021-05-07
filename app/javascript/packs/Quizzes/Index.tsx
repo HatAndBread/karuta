@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MainTemplate from '../Components/MainTemplate';
 import camelize from '../../camelize';
-import snakeize from '../../snakeize';
 
 export interface Question {
   createdAt: string;
@@ -24,15 +24,26 @@ export interface Quiz {
 const root = document.getElementById('root');
 const data = camelize(JSON.parse(root.dataset.quizzes));
 
-console.log('This is the data', data);
-const QuizzesIndex = () => {
+const QuizzesIndex = ({ quizzes }: { quizzes: Quiz[] }) => {
+  console.log('This is the data', quizzes);
   return (
     <div>
+      {quizzes.map((quiz) => {
+        return (
+          <a
+            href={`/users/${quiz.userId}/quizzes/${quiz.id}/edit`}
+            key={quiz.id}
+          >
+            {quiz.name}
+          </a>
+        );
+      })}
       <div>This is the Quizzes index;</div>
     </div>
   );
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<QuizzesIndex />, document.getElementById('root'));
-});
+ReactDOM.render(
+  <MainTemplate content={<QuizzesIndex quizzes={data} />} />,
+  document.getElementById('root')
+);

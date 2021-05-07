@@ -1,5 +1,2 @@
-<% @quizzes.each do |quiz|%>
-  <p><%= quiz.name %></p>
-<%end%>
 <div id="root" data-quizzes="<%= @quizzes.to_json(include: [:questions]) %>"></div>
 <%= javascript_pack_tag 'Quizzes/Index' %>
