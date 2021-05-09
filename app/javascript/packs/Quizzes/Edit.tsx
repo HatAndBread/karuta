@@ -4,17 +4,29 @@ import { Quiz, Question } from './Index';
 import axios from 'axios';
 import QuestionForm from '../Components/Quizzes/QuestionForm';
 import MainTemplate from '../Components/MainTemplate';
+import setupToken from '../../token';
 import camelize from '../../camelize';
+import snakeize from '../../snakeize';
 
 const root = document.getElementById('root');
 const data = camelize(JSON.parse(root.dataset.quiz));
+
+setupToken();
 
 const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
   console.log(quiz, 'HO!');
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     console.log(e);
-    axios.post(`/users/${quiz.userId}/quizzes/${quiz.id}/edit`);
+    //axios.put()
+    axios
+      .patch(`/users/${quiz.userId}/quizzes/${quiz.id}`, snakeize(quiz))
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="EditQuiz">

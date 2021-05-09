@@ -23,7 +23,14 @@ class QuizzesController < ApplicationController
 
   def update
     @quiz = Quiz.find(params[:id])
-    redirect_to @quiz if @quiz.update(quizzes_params)
+    puts '$$$$$$$$$$$$$$$$$$$$$$$44'
+    p params
+    # redirect_to @quiz if @quiz.update(quizzes_params)
+  end
+
+  def destroy
+    @quiz = Quiz.find(params[:id])
+    redirect_to quizzes_url if @quiz.destroy
   end
 
   private
