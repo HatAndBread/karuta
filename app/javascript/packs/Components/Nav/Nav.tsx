@@ -1,10 +1,15 @@
 import React from 'react';
 
-const Nav = () => {
+type Props = {
+  currentUser: CurrentUser;
+};
+const Nav = ({ currentUser }: Props) => {
+  console.log(currentUser);
   return (
-    <>
-      <div>This is the nav!</div>
-    </>
+    <nav className="Nav">
+      <a href="/">Home</a>
+      <a href={`/users/${currentUser.id}/quizzes`}>My quizzes</a>
+    </nav>
   );
 };
 

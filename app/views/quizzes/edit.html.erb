@@ -1,3 +1,1 @@
-<div id="root" data-quiz="<%=@quiz.to_json(include: :questions)%>"></div>
-<%= stylesheet_pack_tag 'edit' %>
-<%= javascript_pack_tag 'Quizzes/Edit' %>
+<%= render partial: 'shared/entry', locals: {data: @quiz.to_json(include: :questions), content_type: "quizEdit"} %>

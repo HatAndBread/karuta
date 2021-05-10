@@ -24,7 +24,7 @@ class QuizzesController < ApplicationController
   def update
     quiz = Quiz.find(params[:id])
     quiz.update(quiz_params)
-    update_questions(params[:questions])
+    update_questions(params[:questions], params[:id])
     render json: quiz.to_json(include: [:questions])
   end
 
@@ -39,9 +39,13 @@ class QuizzesController < ApplicationController
     params.require(:quiz).permit(:name, :public, :questions)
   end
 
-  def update_questions(questions)
+  def update_questions(questions, quiz_id)
     questions.each do |question|
-      Question.find(question[:id]).update({ content: question[:content], answer: question[:answer] })
+      if question[:id]
+        Question.find(question[:id]).update({ content: question[:content], answer: question[:answer] })
+      else
+        Question.create({ content: question[:content], answer: question[:answer], quiz_id: quiz_id })
+      end
     end
   end
 end

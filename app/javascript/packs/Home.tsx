@@ -5,6 +5,4 @@ const Home = () => {
   return <div>THIS IS REACT</div>;
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(<Home />, document.getElementById('root'));
-});
+export default Home;

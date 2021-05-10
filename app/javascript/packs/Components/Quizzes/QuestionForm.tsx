@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Quiz, Question } from '../../Quizzes/Index';
 import { cloneDeep } from 'lodash';
 import Icon from '../../Components/Icon/Icon';
 import deleteIcon from '../../../../assets/images/delete.png';

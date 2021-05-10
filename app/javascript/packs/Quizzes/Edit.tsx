@@ -1,20 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { Quiz, Question } from './Index';
 import Icon from '../Components/Icon/Icon';
 import addIcon from '../../../assets/images/add.png';
 import axios from 'axios';
 import QuestionForm from '../Components/Quizzes/QuestionForm';
-import MainTemplate from '../Components/MainTemplate';
-import setupToken from '../../token';
-import camelize from '../../camelize';
 import snakeize from '../../snakeize';
 import { cloneDeep } from 'lodash';
-
-const root = document.getElementById('root');
-const data = camelize(JSON.parse(root.dataset.quiz));
-
-setupToken();
 
 const EditQuiz = ({ quizData }: { quizData: Quiz }) => {
   const [quiz, setQuiz] = useState(quizData);
@@ -23,7 +13,7 @@ const EditQuiz = ({ quizData }: { quizData: Quiz }) => {
     axios
       .patch(`/users/${quiz.userId}/quizzes/${quiz.id}`, snakeize(quiz))
       .then((res) => {
-        console.log(res.data);
+        setQuiz(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -58,4 +48,4 @@ const EditQuiz = ({ quizData }: { quizData: Quiz }) => {
   );
 };
 
-ReactDOM.render(<MainTemplate content={<EditQuiz quizData={data} />} />, root);
+export default EditQuiz;

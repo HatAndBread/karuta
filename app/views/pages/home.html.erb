@@ -1,3 +1,1 @@
-<h1>Hi!</h1>
-<div id="root"></div>
-<%= javascript_pack_tag "Home" %>
+<%= render partial: 'shared/entry', locals: {data: {data: nil}.to_json, content_type: "home"} %>
