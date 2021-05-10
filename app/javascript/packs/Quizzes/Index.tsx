@@ -4,22 +4,22 @@ import MainTemplate from '../Components/MainTemplate';
 import camelize from '../../camelize';
 
 export interface Question {
-  createdAt: string;
-  updatedAt: string;
-  id: number;
-  quizId: number;
+  createdAt?: string;
+  updatedAt?: string;
+  id?: number;
+  quizId?: number;
   answer: string;
   content: string;
 }
 
 export interface Quiz {
-  createdAt: string;
-  id: number;
+  createdAt?: string;
+  id?: number;
   name: string;
   public: boolean;
   questions: Question[];
-  updatedAt: string;
-  userId: number;
+  updatedAt?: string;
+  userId?: number;
 }
 const root = document.getElementById('root');
 const data = camelize(JSON.parse(root.dataset.quizzes));

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Quiz, Question } from '../../Quizzes/Index';
-import _ from 'lodash';
+import { cloneDeep } from 'lodash';
+import Icon from '../../Components/Icon/Icon';
+import deleteIcon from '../../../../assets/images/delete.png';
 
 const QuestionForm = ({
   quiz,
@@ -21,9 +23,12 @@ const QuestionForm = ({
       if (ind === index) question[type] = e.target.value;
       return question;
     });
-    const quizCopy = _.cloneDeep(quiz);
+    const quizCopy = cloneDeep(quiz);
     quizCopy.questions = newQuestions;
     setQuiz(quizCopy);
+  };
+  const deleteWord = () => {
+    console.log('deleting a word!');
   };
   return (
     <div>
@@ -37,6 +42,7 @@ const QuestionForm = ({
         value={quiz.questions[index].content}
         onChange={(e) => handleChange(e, 'content')}
       />
+      <Icon src={deleteIcon} textAlt="␡" clickCallback={deleteWord} />
     </div>
   );
 };

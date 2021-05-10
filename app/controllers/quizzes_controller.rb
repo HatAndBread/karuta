@@ -14,7 +14,7 @@ class QuizzesController < ApplicationController
   end
 
   def create
-    @quiz = Quiz.new(quizzes_params)
+    @quiz = Quiz.new(quiz_params)
   end
 
   def edit
@@ -22,15 +22,10 @@ class QuizzesController < ApplicationController
   end
 
   def update
-    @quiz = Quiz.find(params[:id])
-    puts '$$$$$$$$$$$$$$$$$$$$$$$44'
-    params[:questions].each do |question|
-      new_question = Question.find(question[:id])
-      new_question.update({ content: question[:content], answer: question[:answer] })
-      p question
-      p new_question
-    end
-    # redirect_to @quiz if @quiz.update(quizzes_params)
+    quiz = Quiz.find(params[:id])
+    quiz.update(quiz_params)
+    update_questions(params[:questions])
+    render json: quiz.to_json(include: [:questions])
   end
 
   def destroy
@@ -40,7 +35,13 @@ class QuizzesController < ApplicationController
 
   private
 
-  def quizzes_params
-    params.require(:quizzes).permit(:name, :public, :questions)
+  def quiz_params
+    params.require(:quiz).permit(:name, :public, :questions)
+  end
+
+  def update_questions(questions)
+    questions.each do |question|
+      Question.find(question[:id]).update({ content: question[:content], answer: question[:answer] })
+    end
   end
 end
