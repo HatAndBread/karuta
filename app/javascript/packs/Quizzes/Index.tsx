@@ -1,9 +1,16 @@
 import React from 'react';
 
-const QuizzesIndex = ({ quizzes }: { quizzes: Quiz[] }) => {
+const QuizzesIndex = ({
+  quizzes,
+  currentUser
+}: {
+  quizzes: Quiz[];
+  currentUser: CurrentUser | null;
+}) => {
   console.log('This is the data', quizzes);
   return (
     <div>
+      <a href={`/users/${currentUser.id}/quizzes/new`}>Create a new quiz</a>
       {quizzes.map((quiz) => {
         return (
           <a

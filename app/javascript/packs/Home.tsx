@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const Home = () => {
-  return <div>THIS IS REACT</div>;
+  return (
+    <div className="Home">
+      <h1>Karuta Machine</h1>
+    </div>
+  );
 };
 
 export default Home;

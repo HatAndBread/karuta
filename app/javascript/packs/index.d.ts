@@ -1,4 +1,7 @@
-declare module '*.png';
+declare module '*.png' {
+  const value: any;
+  export = value;
+}
 
 interface CurrentUser {
   id: number;
@@ -26,4 +29,4 @@ interface Quiz {
   userId?: number;
 }
 
-type ContentType = 'quizEdit' | 'quizzesIndex' | 'home' | string;
+type ContentType = 'quizNew' | 'quizEdit' | 'quizzesIndex' | 'home' | string;

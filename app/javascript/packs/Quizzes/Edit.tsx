@@ -6,7 +6,13 @@ import QuestionForm from '../Components/Quizzes/QuestionForm';
 import snakeize from '../../snakeize';
 import { cloneDeep } from 'lodash';
 
-const EditQuiz = ({ quizData }: { quizData: Quiz }) => {
+const EditQuiz = ({
+  quizData,
+  currentUser
+}: {
+  quizData: Quiz;
+  currentUser: CurrentUser | null;
+}) => {
   const [quiz, setQuiz] = useState(quizData);
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -31,6 +37,15 @@ const EditQuiz = ({ quizData }: { quizData: Quiz }) => {
   return (
     <div className="EditQuiz">
       <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={quiz.name}
+          onChange={(e) => {
+            const quizCopy = cloneDeep(quiz);
+            quizCopy.name = e.target.value;
+            setQuiz(quizCopy);
+          }}
+        />
         {quiz.questions.map((question, index) => (
           <QuestionForm
             quiz={quiz}
