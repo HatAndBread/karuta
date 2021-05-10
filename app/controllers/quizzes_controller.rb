@@ -24,7 +24,12 @@ class QuizzesController < ApplicationController
   def update
     @quiz = Quiz.find(params[:id])
     puts '$$$$$$$$$$$$$$$$$$$$$$$44'
-    p params
+    params[:questions].each do |question|
+      new_question = Question.find(question[:id])
+      new_question.update({ content: question[:content], answer: question[:answer] })
+      p question
+      p new_question
+    end
     # redirect_to @quiz if @quiz.update(quizzes_params)
   end
 

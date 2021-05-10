@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Quiz, Question } from './Index';
 import axios from 'axios';
@@ -13,12 +13,10 @@ const data = camelize(JSON.parse(root.dataset.quiz));
 
 setupToken();
 
-const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
-  console.log(quiz, 'HO!');
+const EditQuiz = ({ quizData }: { quizData: Quiz }) => {
+  const [quiz, setQuiz] = useState(quizData);
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    console.log(e);
-    //axios.put()
     axios
       .patch(`/users/${quiz.userId}/quizzes/${quiz.id}`, snakeize(quiz))
       .then((res) => {
@@ -28,11 +26,17 @@ const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
         console.log(err);
       });
   };
+  useEffect(() => {
+    console.log(quiz, '🌈');
+  }, [quiz]);
   return (
     <div className="EditQuiz">
       <form onSubmit={handleSubmit}>
-        {quiz.questions.map((question) => (
+        {quiz.questions.map((question, index) => (
           <QuestionForm
+            quiz={quiz}
+            setQuiz={setQuiz}
+            index={index}
             content={question.content}
             answer={question.answer}
             key={question.id}
@@ -44,4 +48,4 @@ const EditQuiz = ({ quiz }: { quiz: Quiz }) => {
   );
 };
 
-ReactDOM.render(<MainTemplate content={<EditQuiz quiz={data} />} />, root);
+ReactDOM.render(<MainTemplate content={<EditQuiz quizData={data} />} />, root);

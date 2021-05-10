@@ -1,25 +1,41 @@
 import React, { useState } from 'react';
+import { Quiz, Question } from '../../Quizzes/Index';
+import _ from 'lodash';
 
 const QuestionForm = ({
-  content,
-  answer
+  quiz,
+  index,
+  setQuiz
 }: {
   content?: string;
   answer?: string;
+  quiz: Quiz;
+  index: number;
+  setQuiz: React.Dispatch<React.SetStateAction<Quiz>>;
 }) => {
-  const [answerText, setAnswerText] = useState(answer);
-  const [contentText, setContentText] = useState(content);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    type: 'answer' | 'content'
+  ) => {
+    const newQuestions = quiz.questions.map((question, ind) => {
+      if (ind === index) question[type] = e.target.value;
+      return question;
+    });
+    const quizCopy = _.cloneDeep(quiz);
+    quizCopy.questions = newQuestions;
+    setQuiz(quizCopy);
+  };
   return (
     <div>
       <input
         type="text"
-        value={answerText ? answerText : ''}
-        onChange={(e) => setAnswerText(e.target.value)}
+        value={quiz.questions[index].answer}
+        onChange={(e) => handleChange(e, 'answer')}
       />
       <input
         type="text"
-        value={contentText ? contentText : ''}
-        onChange={(e) => setContentText(e.target.value)}
+        value={quiz.questions[index].content}
+        onChange={(e) => handleChange(e, 'content')}
       />
     </div>
   );

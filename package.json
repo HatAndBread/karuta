@@ -12,6 +12,7 @@
     "@types/react-dom": "^17.0.3",
     "axios": "^0.21.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -22,6 +23,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@types/lodash": "^4.14.168",
     "webpack-dev-server": "^3.11.2"
   }
 }
