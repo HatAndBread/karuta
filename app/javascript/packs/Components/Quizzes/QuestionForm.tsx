@@ -3,6 +3,10 @@ import { Quiz, Question } from '../../Quizzes/Index';
 import { cloneDeep } from 'lodash';
 import Icon from '../../Components/Icon/Icon';
 import deleteIcon from '../../../../assets/images/delete.png';
+import axios from 'axios';
+import setToken from '../../../token';
+
+setToken();
 
 const QuestionForm = ({
   quiz,
@@ -28,7 +32,23 @@ const QuestionForm = ({
     setQuiz(quizCopy);
   };
   const deleteWord = () => {
-    console.log('deleting a word!');
+    // TODO: warn first
+    if (quiz.questions[index].id) {
+      axios
+        .delete(`/questions/${quiz.questions[index].id}`, {
+          data: { id: quiz.questions[index].id }
+        })
+        .then((res) => {
+          setQuiz(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      const copy = cloneDeep(quiz);
+      copy.questions.splice(index, 1);
+      setQuiz(copy);
+    }
   };
   return (
     <div>

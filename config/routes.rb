@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :users do
     resources :quizzes
   end
+  resources :questions, only: [:destroy]
 end
