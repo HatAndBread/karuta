@@ -15,6 +15,10 @@ class QuizzesController < ApplicationController
 
   def create
     @quiz = Quiz.new(quiz_params)
+    @quiz.user = current_user
+    @quiz.save!
+    update_questions(params[:questions], @quiz.id)
+    render json: { path: "/users/#{current_user.id}/quizzes/#{@quiz.id}/edit" }.to_json if @quiz.id
   end
 
   def edit

@@ -14,11 +14,19 @@ const MainTemplate = (props: Props) => {
     switch (props.contentType) {
       case 'quizNew':
         return (
-          <EditQuiz quizData={props.data} currentUser={props.currentUser} />
+          <EditQuiz
+            quizData={props.data}
+            currentUser={props.currentUser}
+            newQuiz={true}
+          />
         );
       case 'quizEdit':
         return (
-          <EditQuiz quizData={props.data} currentUser={props.currentUser} />
+          <EditQuiz
+            quizData={props.data}
+            currentUser={props.currentUser}
+            newQuiz={false}
+          />
         );
       case 'quizzesIndex':
         return (

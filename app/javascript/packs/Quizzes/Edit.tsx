@@ -8,22 +8,31 @@ import { cloneDeep } from 'lodash';
 
 const EditQuiz = ({
   quizData,
-  currentUser
+  currentUser,
+  newQuiz
 }: {
   quizData: Quiz;
   currentUser: CurrentUser | null;
+  newQuiz: boolean;
 }) => {
   const [quiz, setQuiz] = useState(quizData);
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    axios
-      .patch(`/users/${quiz.userId}/quizzes/${quiz.id}`, snakeize(quiz))
-      .then((res) => {
-        setQuiz(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (newQuiz) {
+      axios
+        .post(`/users/${quiz.userId}/quizzes/`, snakeize(quiz))
+        .then((res) => {
+          if (res.data.path) {
+            window.location.href = res.data.path;
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axios
+        .patch(`/users/${quiz.userId}/quizzes/${quiz.id}`, snakeize(quiz))
+        .then((res) => setQuiz(res.data))
+        .catch((err) => console.log(err));
+    }
   };
   const addNew = () => {
     const updatedQuestions = [...quiz.questions, { answer: '', content: '' }];
@@ -39,7 +48,7 @@ const EditQuiz = ({
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={quiz.name}
+          value={quiz.name ? quiz.name : ''}
           onChange={(e) => {
             const quizCopy = cloneDeep(quiz);
             quizCopy.name = e.target.value;
@@ -56,7 +65,7 @@ const EditQuiz = ({
             key={index}
           />
         ))}
-        <button type="submit">Edit</button>
+        <button type="submit">Save</button>
         <Icon src={addIcon} textAlt="+" clickCallback={addNew} />
       </form>
     </div>
