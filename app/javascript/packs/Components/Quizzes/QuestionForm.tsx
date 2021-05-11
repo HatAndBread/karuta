@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { cloneDeep, iteratee } from 'lodash';
+import { cloneDeep } from 'lodash';
 import Icon from '../../Components/Icon/Icon';
 import deleteIcon from '../../../../assets/images/delete.png';
 import axios from 'axios';
@@ -18,10 +18,7 @@ const QuestionForm = ({
   index: number;
   setQuiz: React.Dispatch<React.SetStateAction<Quiz>>;
 }) => {
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: 'answer' | 'content'
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'answer' | 'content') => {
     const newQuestions = quiz.questions.map((question, ind) => {
       if (ind === index) question[type] = e.target.value;
       return question;
@@ -51,17 +48,9 @@ const QuestionForm = ({
   };
   return (
     <div>
-      <input
-        type="text"
-        value={quiz.questions[index].answer}
-        onChange={(e) => handleChange(e, 'answer')}
-      />
-      <input
-        type="text"
-        value={quiz.questions[index].content}
-        onChange={(e) => handleChange(e, 'content')}
-      />
-      <Icon src={deleteIcon} textAlt="␡" clickCallback={deleteWord} />
+      <input type='text' value={quiz.questions[index].answer} onChange={(e) => handleChange(e, 'answer')} />
+      <input type='text' value={quiz.questions[index].content} onChange={(e) => handleChange(e, 'content')} />
+      <Icon src={deleteIcon} textAlt='␡' clickCallback={deleteWord} />
     </div>
   );
 };
