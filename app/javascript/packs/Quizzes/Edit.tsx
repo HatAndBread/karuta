@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Icon from '../Components/Icon/Icon';
 import addIcon from '../../../assets/images/add.png';
+import deleteIcon from '../../../assets/images/delete.png';
 import axios from 'axios';
 import QuestionForm from '../Components/Quizzes/QuestionForm';
 import snakeize from '../../snakeize';
@@ -40,6 +41,16 @@ const EditQuiz = ({
     quizCopy.questions = updatedQuestions;
     setQuiz(quizCopy);
   };
+  const deleteQuiz = () => {
+    axios
+      .delete(`/users/${quiz.userId}/quizzes/${quiz.id}`)
+      .then((res) => {
+        if (res.data.path) {
+          window.location.href = res.data.path;
+        }
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
     console.log(quiz, '🌈');
   }, [quiz]);
@@ -55,6 +66,9 @@ const EditQuiz = ({
             setQuiz(quizCopy);
           }}
         />
+        {!newQuiz && (
+          <Icon src={deleteIcon} textAlt="+" clickCallback={deleteQuiz} />
+        )}
         {quiz.questions.map((question, index) => (
           <QuestionForm
             quiz={quiz}

@@ -34,7 +34,9 @@ class QuizzesController < ApplicationController
 
   def destroy
     @quiz = Quiz.find(params[:id])
-    redirect_to quizzes_url if @quiz.destroy
+    puts '🗑🗑🗑🗑🗑🗑🗑'
+    puts @quiz
+    render json: { path: "/users/#{current_user.id}/quizzes" } if @quiz.destroy
   end
 
   private
