@@ -69,16 +69,18 @@ const EditQuiz = ({
         {!newQuiz && (
           <Icon src={deleteIcon} textAlt="+" clickCallback={deleteQuiz} />
         )}
-        {quiz.questions.map((question, index) => (
-          <QuestionForm
-            quiz={quiz}
-            setQuiz={setQuiz}
-            index={index}
-            content={question.content}
-            answer={question.answer}
-            key={index}
-          />
-        ))}
+        <div className="question-list">
+          {quiz.questions.map((question, index) => (
+            <QuestionForm
+              quiz={quiz}
+              setQuiz={setQuiz}
+              index={index}
+              content={question.content}
+              answer={question.answer}
+              key={index}
+            />
+          ))}
+        </div>
         <button type="submit">Save</button>
         <Icon src={addIcon} textAlt="+" clickCallback={addNew} />
       </form>

@@ -49,3 +49,16 @@ textarea {
 button {
   cursor: pointer;
 }
+a {
+  transition: 0.3s;
+}
+a:link {
+  color: gray;
+  text-decoration: none;
+}
+a:visited {
+  color: darkgray;
+}
+a:hover {
+  color: black;
+}

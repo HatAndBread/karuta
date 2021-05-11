@@ -1,4 +1,5 @@
 import React, { useContext, createContext } from 'react';
+import Games from '../Games/Games';
 import Nav from './Nav/Nav';
 import EditQuiz from '../Quizzes/Edit';
 import QuizzesIndex from '../Quizzes/Index';
@@ -16,27 +17,15 @@ const MainTemplate = (props: Props) => {
       case 'quizShow':
         return <ShowQuiz />;
       case 'quizNew':
-        return (
-          <EditQuiz
-            quizData={props.data}
-            currentUser={props.currentUser}
-            newQuiz={true}
-          />
-        );
+        return <EditQuiz quizData={props.data} currentUser={props.currentUser} newQuiz={true} />;
       case 'quizEdit':
-        return (
-          <EditQuiz
-            quizData={props.data}
-            currentUser={props.currentUser}
-            newQuiz={false}
-          />
-        );
+        return <EditQuiz quizData={props.data} currentUser={props.currentUser} newQuiz={false} />;
       case 'quizzesIndex':
-        return (
-          <QuizzesIndex quizzes={props.data} currentUser={props.currentUser} />
-        );
+        return <QuizzesIndex quizzes={props.data} currentUser={props.currentUser} />;
       case 'home':
         return <Home />;
+      case 'games':
+        return <Games quizzes={props.data} currentUser={props.currentUser} />;
       default:
         return '';
     }
