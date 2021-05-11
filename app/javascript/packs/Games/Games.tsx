@@ -10,7 +10,7 @@ const Games = ({ quizzes, currentUser }: { quizzes: Quiz[]; currentUser: Current
     <div className='Games'>
       <div className='quiz-links'></div>
       <button onClick={() => dispatch({ type: 'KARUTA' })}>Karuta</button>
-      {currentGame === 'KARUTA' && <Karuta />}
+      {currentGame === 'KARUTA' && <Karuta quizzes={quizzes} />}
     </div>
   );
 };

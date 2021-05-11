@@ -3,16 +3,20 @@ import { createStore, combineReducers } from 'redux';
 
 const currentGame = (state: string | null = null, action: PayloadAction<string>) => {
   switch (action.type) {
-    case 'KARUTA': {
+    case 'KARUTA':
       return 'KARUTA';
-    }
     default: {
-      return null;
+      return state;
     }
   }
 };
 const isTeacher = (state: boolean = false, action: PayloadAction<string>) => {
-  return !state;
+  switch (action.type) {
+    case 'TEACHER':
+      return true;
+    default:
+      return false;
+  }
 };
 
 export default createStore(
