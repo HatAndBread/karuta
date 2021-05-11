@@ -5,9 +5,8 @@ const currentGame = (state: string | null = null, action: PayloadAction<string>)
   switch (action.type) {
     case 'KARUTA':
       return 'KARUTA';
-    default: {
+    default:
       return state;
-    }
   }
 };
 const isTeacher = (state: boolean = false, action: PayloadAction<string>) => {
@@ -16,6 +15,15 @@ const isTeacher = (state: boolean = false, action: PayloadAction<string>) => {
       return true;
     default:
       return false;
+  }
+};
+
+const currentModal = (state: string | null = null, action: PayloadAction<string>) => {
+  switch (action.type) {
+    case 'WARN':
+      return 'WARN';
+    default:
+      return state;
   }
 };
 
