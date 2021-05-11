@@ -2,6 +2,7 @@ import React, { useContext, createContext } from 'react';
 import Nav from './Nav/Nav';
 import EditQuiz from '../Quizzes/Edit';
 import QuizzesIndex from '../Quizzes/Index';
+import ShowQuiz from '../Quizzes/Show';
 import Home from '../Home';
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
 const MainTemplate = (props: Props) => {
   const getContent = () => {
     switch (props.contentType) {
+      case 'quizShow':
+        return <ShowQuiz />;
       case 'quizNew':
         return (
           <EditQuiz

@@ -29,4 +29,10 @@ interface Quiz {
   userId?: number;
 }
 
-type ContentType = 'quizNew' | 'quizEdit' | 'quizzesIndex' | 'home' | string;
+type ContentType =
+  | 'quizShow'
+  | 'quizNew'
+  | 'quizEdit'
+  | 'quizzesIndex'
+  | 'home'
+  | string;

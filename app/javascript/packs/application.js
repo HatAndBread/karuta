@@ -9,5 +9,5 @@ import * as ActiveStorage from '@rails/activestorage';
 import 'channels';
 
 Rails.start();
-Turbolinks.start();
+// Turbolinks.start(); // This guy here is causing the trouble with DOMContentLoaded listener
 ActiveStorage.start();

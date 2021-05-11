@@ -4,7 +4,7 @@ import setupToken from '../token';
 import camelize from '../camelize';
 import MainTemplate from './Components/MainTemplate';
 
-export default function setup(root: HTMLElement) {
+function setup(root: HTMLElement) {
   setupToken();
   console.log(root.dataset);
   const data = camelize(JSON.parse(root.dataset.data));
@@ -22,4 +22,6 @@ export default function setup(root: HTMLElement) {
   );
 }
 
-setup(document.getElementById('root'));
+document.addEventListener('DOMContentLoaded', () => {
+  setup(document.getElementById('root'));
+});
