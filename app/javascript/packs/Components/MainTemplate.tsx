@@ -5,6 +5,8 @@ import EditQuiz from '../Quizzes/Edit';
 import QuizzesIndex from '../Quizzes/Index';
 import ShowQuiz from '../Quizzes/Show';
 import Home from '../Home';
+import ModalRouter from './Modal/ModalRouter';
+import { useAppSelector } from '../Hooks/Hooks';
 
 type Props = {
   currentUser: CurrentUser | null;
@@ -12,6 +14,7 @@ type Props = {
   data: any;
 };
 const MainTemplate = (props: Props) => {
+  const modalCurrentlyOpen = useAppSelector((state) => state.modal.modalName);
   const getContent = () => {
     switch (props.contentType) {
       case 'quizShow':
@@ -32,6 +35,7 @@ const MainTemplate = (props: Props) => {
   };
   return (
     <div>
+      {modalCurrentlyOpen && <ModalRouter />}
       <Nav currentUser={props.currentUser} />
       {getContent()}
     </div>

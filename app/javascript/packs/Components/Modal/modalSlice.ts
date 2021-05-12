@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ModalState {
-  modalName: 'KARUTA' | 'MEMORY' | null;
+  modalName: 'WARN' | 'ERROR' | 'MESSAGE' | null;
 }
 
 const initialState: ModalState = {
@@ -11,7 +11,7 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    setModal: (state, action: PayloadAction<'KARUTA' | 'MEMORY' | null>) => {
+    setModal: (state, action: PayloadAction<'WARN' | 'ERROR' | 'MESSAGE' | null>) => {
       state.modalName = action.payload;
       return state;
     }
