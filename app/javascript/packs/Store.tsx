@@ -1,33 +1,12 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { createStore, combineReducers } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
+import modalReducer from './Components/Modal/modalSlice';
 
-const currentGame = (state: string | null = null, action: PayloadAction<string>) => {
-  switch (action.type) {
-    case 'KARUTA':
-      return 'KARUTA';
-    default:
-      return state;
+const store = configureStore({
+  reducer: {
+    modal: modalReducer
   }
-};
-const isTeacher = (state: boolean = false, action: PayloadAction<string>) => {
-  switch (action.type) {
-    case 'TEACHER':
-      return true;
-    default:
-      return false;
-  }
-};
+});
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-const currentModal = (state: string | null = null, action: PayloadAction<string>) => {
-  switch (action.type) {
-    case 'WARN':
-      return 'WARN';
-    default:
-      return state;
-  }
-};
-
-export default createStore(
-  combineReducers({ currentGame, isTeacher }),
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-);
+export default store;
