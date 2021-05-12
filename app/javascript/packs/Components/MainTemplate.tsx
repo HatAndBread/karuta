@@ -6,7 +6,8 @@ import QuizzesIndex from '../Quizzes/Index';
 import ShowQuiz from '../Quizzes/Show';
 import Home from '../Home';
 import ModalRouter from './Modal/ModalRouter';
-import { useAppSelector } from '../Hooks/Hooks';
+import { useAppSelector, useAppDispatch } from '../Hooks/Hooks';
+import { setModal } from './Modal/modalSlice';
 
 type Props = {
   currentUser: CurrentUser | null;
@@ -14,6 +15,7 @@ type Props = {
   data: any;
 };
 const MainTemplate = (props: Props) => {
+  const dispatch = useAppDispatch();
   const modalCurrentlyOpen = useAppSelector((state) => state.modal.modalName);
   const getContent = () => {
     switch (props.contentType) {
@@ -35,7 +37,8 @@ const MainTemplate = (props: Props) => {
   };
   return (
     <div>
-      {modalCurrentlyOpen && <ModalRouter />}
+      <ModalRouter />
+      <button onClick={() => dispatch(setModal('WARN'))}>Modal Down!</button>
       <Nav currentUser={props.currentUser} />
       {getContent()}
     </div>

@@ -1,7 +1,27 @@
 .Modal {
   position: fixed;
-  top: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(60, 61, 62, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.15s;
+  .modal-box {
+    padding: 8px;
+    position: relative;
+    background-color: white;
+    border-radius: 8px;
+    min-width: 250px;
+    min-height: 100px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 3px 3px;
+  }
+  .closer-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    .Icon {
+      width: 24px;
+    }
+  }
 }
