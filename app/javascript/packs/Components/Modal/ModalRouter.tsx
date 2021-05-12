@@ -1,26 +1,18 @@
 import React from 'react';
 import { useAppSelector } from '../../Hooks/Hooks';
 import Modal from './Modal';
+import WarnModal from './WarnModal';
+import ErrorModal from './ErrorModal';
 
 const ModalRouter = () => {
-  const currentOpenModal = useAppSelector((state) => state.modal.modalName);
+  const modalState = useAppSelector((state) => state.modal);
+  const currentOpenModal = modalState.modalName;
   console.log(currentOpenModal);
-  // const getCurrentModal = () => {
-  //   switch (currentOpenModal) {
-  //     case 'ERROR':
-  //       return <Modal top={'-100vh'} />;
-  //     case 'MESSAGE':
-  //       return <Modal top={'-100vh'} />;
-  //     case 'WARN':
-  //       return <Modal top={'-100vh'} />;
-  //       return <Modal top={'-100vh'} />;
-  //   }
-  // };
   return (
     <div className='ModalRouter'>
-      <Modal name='ERROR' />
-      <Modal name='MESSAGE' />
-      <Modal name='WARN' />
+      <Modal name='ERROR' content={<ErrorModal textContent={'There was an Error!'} />} />
+      <Modal name='MESSAGE' content={<div>HELLO</div>} />
+      <Modal name='WARN' content={<WarnModal textContent={modalState.warnMessage} />} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from 'react';
+import React, { useContext, createContext, useState } from 'react';
 import Games from '../Games/Games';
 import Nav from './Nav/Nav';
 import EditQuiz from '../Quizzes/Edit';
@@ -9,12 +9,23 @@ import ModalRouter from './Modal/ModalRouter';
 import { useAppSelector, useAppDispatch } from '../Hooks/Hooks';
 import { setModal } from './Modal/modalSlice';
 
+type CallbackCtx = {
+  modalCallback: () => any;
+  setModalCallback: React.Dispatch<React.SetStateAction<() => any>>;
+};
+export const CallbackContext = createContext<CallbackCtx>(null);
+
 type Props = {
   currentUser: CurrentUser | null;
   contentType: ContentType;
   data: any;
 };
 const MainTemplate = (props: Props) => {
+  const [modalCallback, setModalCallback] = useState<() => any>(() => () => {});
+  const callbackCtx = {
+    modalCallback,
+    setModalCallback
+  };
   const dispatch = useAppDispatch();
   const modalCurrentlyOpen = useAppSelector((state) => state.modal.modalName);
   const getContent = () => {
@@ -36,12 +47,12 @@ const MainTemplate = (props: Props) => {
     }
   };
   return (
-    <div>
+    <CallbackContext.Provider value={callbackCtx}>
       <ModalRouter />
       <button onClick={() => dispatch(setModal('WARN'))}>Modal Down!</button>
       <Nav currentUser={props.currentUser} />
       {getContent()}
-    </div>
+    </CallbackContext.Provider>
   );
 };
 export default MainTemplate;

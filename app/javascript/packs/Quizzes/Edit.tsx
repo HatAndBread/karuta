@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Icon from '../Components/Icon/Icon';
 import addIcon from '../../../assets/images/add.png';
 import deleteIcon from '../../../assets/images/delete.png';
@@ -6,6 +6,9 @@ import axios from 'axios';
 import QuestionForm from '../Components/Quizzes/QuestionForm';
 import snakeize from '../../snakeize';
 import { cloneDeep } from 'lodash';
+import { useAppDispatch } from '../Hooks/Hooks';
+import { CallbackContext } from '../Components/MainTemplate';
+import { setModal, setWarnMessage, setErrorMessage } from '../Components/Modal/modalSlice';
 
 const EditQuiz = ({
   quizData,
@@ -16,6 +19,9 @@ const EditQuiz = ({
   currentUser: CurrentUser | null;
   newQuiz: boolean;
 }) => {
+  const dispatch = useAppDispatch();
+  const setModalCallback = useContext(CallbackContext).setModalCallback;
+  console.log(useContext(CallbackContext), 'ASDFADFSSFD');
   const [quiz, setQuiz] = useState(quizData);
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -42,23 +48,31 @@ const EditQuiz = ({
     setQuiz(quizCopy);
   };
   const deleteQuiz = () => {
-    axios
-      .delete(`/users/${quiz.userId}/quizzes/${quiz.id}`)
-      .then((res) => {
-        if (res.data.path) {
-          window.location.href = res.data.path;
-        }
-      })
-      .catch((err) => console.log(err));
+    dispatch(setWarnMessage('Are you sure you want to delete this quiz?'));
+    dispatch(setModal('WARN'));
+    setModalCallback(() => () => {
+      axios
+        .delete(`/users/${quiz.userId}/quizzes/${quiz.id}`)
+        .then((res) => {
+          if (res.data.path) {
+            setModalCallback(() => {});
+            window.location.href = res.data.path;
+          }
+        })
+        .catch((err) => {
+          setModalCallback(() => {});
+          console.log(err);
+        });
+    });
   };
   useEffect(() => {
     console.log(quiz, '🌈');
   }, [quiz]);
   return (
-    <div className="EditQuiz">
+    <div className='EditQuiz'>
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
+          type='text'
           value={quiz.name ? quiz.name : ''}
           onChange={(e) => {
             const quizCopy = cloneDeep(quiz);
@@ -66,10 +80,8 @@ const EditQuiz = ({
             setQuiz(quizCopy);
           }}
         />
-        {!newQuiz && (
-          <Icon src={deleteIcon} textAlt="+" clickCallback={deleteQuiz} />
-        )}
-        <div className="question-list">
+        {!newQuiz && <Icon src={deleteIcon} textAlt='+' clickCallback={deleteQuiz} />}
+        <div className='question-list'>
           {quiz.questions.map((question, index) => (
             <QuestionForm
               quiz={quiz}
@@ -81,8 +93,8 @@ const EditQuiz = ({
             />
           ))}
         </div>
-        <button type="submit">Save</button>
-        <Icon src={addIcon} textAlt="+" clickCallback={addNew} />
+        <button type='submit'>Save</button>
+        <Icon src={addIcon} textAlt='+' clickCallback={addNew} />
       </form>
     </div>
   );
