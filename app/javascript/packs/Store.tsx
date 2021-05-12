@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import modalReducer from './Components/Modal/modalSlice';
+import gameReducer from './Games/gameSlice';
 
 const store = configureStore({
   reducer: {
-    modal: modalReducer
+    modal: modalReducer,
+    game: gameReducer
   }
 });
 export type RootState = ReturnType<typeof store.getState>;
