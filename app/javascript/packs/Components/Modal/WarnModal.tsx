@@ -10,6 +10,11 @@ const WarnModal = ({ textContent }: { textContent: string }) => {
   const setModalCallback = ctx.setModalCallback;
   const modalCallback = ctx.modalCallback;
   const dispatch = useAppDispatch();
+  const cleanUp = () => {
+    dispatch(setModal(null));
+    dispatch(clearMessage());
+    setModalCallback(() => () => {});
+  };
   return (
     <div className='modal-content'>
       <Icon src={warnIcon} textAlt='⚠' />
@@ -18,18 +23,11 @@ const WarnModal = ({ textContent }: { textContent: string }) => {
         <button
           onClick={() => {
             modalCallback();
-            dispatch(setModal(null));
+            cleanUp();
           }}>
           OK
         </button>
-        <button
-          onClick={() => {
-            dispatch(setModal(null));
-            dispatch(clearMessage());
-            setModalCallback(() => {});
-          }}>
-          Cancel
-        </button>
+        <button onClick={() => cleanUp()}>Cancel</button>
       </div>
     </div>
   );

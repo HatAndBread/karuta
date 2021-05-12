@@ -55,12 +55,12 @@ const EditQuiz = ({
         .delete(`/users/${quiz.userId}/quizzes/${quiz.id}`)
         .then((res) => {
           if (res.data.path) {
-            setModalCallback(() => {});
+            //setModalCallback(()=>() => {});
             window.location.href = res.data.path;
           }
         })
         .catch((err) => {
-          setModalCallback(() => {});
+          setModalCallback(() => () => {});
           console.log(err);
         });
     });
