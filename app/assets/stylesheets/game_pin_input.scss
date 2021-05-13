@@ -1,7 +1,9 @@
 .GamePinInput {
-  display: grid;
-  grid-template-columns: 50px 50px 50px;
-  grid-template-rows: 50px 50px 50px;
+  .pin-button-container {
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
+  }
   .pin-button {
     display: flex;
     justify-content: center;
@@ -13,6 +15,7 @@
     font-size: xx-large;
     box-shadow: black 0px 0px 1px 1px;
     transition: 0.3s;
+    user-select: none;
   }
   .pin-button:hover {
     background-color: lightblue;
