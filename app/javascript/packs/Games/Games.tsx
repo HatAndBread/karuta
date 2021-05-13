@@ -3,6 +3,7 @@ import Karuta from './Karuta/Karuta';
 import { useAppDispatch, useAppSelector } from '../Hooks/Hooks';
 import { setModal } from '../Components/Modal/modalSlice';
 import { setCurrentGame } from './gameSlice';
+import GamePinInput from './GamePinInput';
 
 const Games = ({ quizzes, currentUser }: { quizzes: Quiz[]; currentUser: CurrentUser | null }) => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ const Games = ({ quizzes, currentUser }: { quizzes: Quiz[]; currentUser: Current
       <div className='quiz-links'></div>
       <button onClick={() => dispatch(setCurrentGame('KARUTA'))}>Karuta</button>
       {currentGame === 'KARUTA' && <Karuta quizzes={quizzes} />}
+      <GamePinInput />
     </div>
   );
 };

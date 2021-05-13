@@ -55,12 +55,14 @@ const EditQuiz = ({
         .delete(`/users/${quiz.userId}/quizzes/${quiz.id}`)
         .then((res) => {
           if (res.data.path) {
-            //setModalCallback(()=>() => {});
             window.location.href = res.data.path;
           }
         })
         .catch((err) => {
-          setModalCallback(() => () => {});
+          dispatch(
+            setErrorMessage('There was a server error deleting this quiz: ' + err + '\n Please try again later.')
+          );
+          dispatch(setModal('ERROR'));
           console.log(err);
         });
     });

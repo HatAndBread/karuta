@@ -1,3 +1,5 @@
+import KarutaCard from './KarutaCard';
+
 import React from 'react';
 const Karuta = ({ quizzes }: { quizzes: Quiz[] }) => {
   return (

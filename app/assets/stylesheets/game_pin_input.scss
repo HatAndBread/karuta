@@ -1,0 +1,32 @@
+.GamePinInput {
+  display: grid;
+  grid-template-columns: 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px;
+  .pin-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    cursor: pointer;
+    font-size: xx-large;
+    box-shadow: black 0px 0px 1px 1px;
+    transition: 0.3s;
+  }
+  .pin-button:hover {
+    background-color: lightblue;
+  }
+  .top-right {
+    border-top-right-radius: 8px;
+  }
+  .top-left {
+    border-top-left-radius: 8px;
+  }
+  .bottom-right {
+    border-bottom-right-radius: 8px;
+  }
+  .bottom-left {
+    border-bottom-left-radius: 8px;
+  }
+}
