@@ -14,13 +14,12 @@ const GamePinInput = () => {
     document.addEventListener('keydown', listenForKey);
     return () => document.removeEventListener('keydown', listenForKey);
   }, [pin]);
+  const pinIsValid = (num: string) => pin.length === 5 && typeof parseInt(pin) === 'number';
   const setPinIfValid = (num: string) => pin.length < 5 && setPin(num);
-  const submit = () => {
-    console.log('submitting pin!');
-  };
+  const submit = () => {};
   return (
     <div className='GamePinInput'>
-      {pin}
+      <div className='pin-display'>{pin}</div>
       <div className='pin-button-container'>
         <div className='pin-button top-left' onClick={() => setPinIfValid(pin + '1')}>
           1
@@ -56,7 +55,7 @@ const GamePinInput = () => {
           0
         </div>
         <div className='pin-button bottom-right' onClick={submit}>
-          🆗
+          OK
         </div>
       </div>
     </div>

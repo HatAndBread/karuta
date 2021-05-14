@@ -17,6 +17,17 @@
     transition: 0.3s;
     user-select: none;
   }
+  .pin-display {
+    font-size: xx-large;
+    width: 150px;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+  }
   .pin-button:hover {
     background-color: lightblue;
   }
